@@ -67,7 +67,7 @@ export default function AboutUs() {
         </div>
       </div>
 
-     {/*} <div className="about__team">
+      <div className="about__team">
         <div className="section__head">
           <h3>Our Team</h3>
         </div>
@@ -80,7 +80,7 @@ export default function AboutUs() {
             </div>
           ))}
         </div>
-      </div> */}
+      </div> 
 
       <div className="about__testimonials">
         <div className="section__head">

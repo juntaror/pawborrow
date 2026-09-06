@@ -3,7 +3,7 @@ import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import "@/styles/Home.css";
 import "@/styles/Button.css";
-import { span } from "framer-motion/m";
+
 
 type PawTileProps = {
   tone?: "coral" | "peach" | "sage" | "sand" | "ink";
@@ -166,7 +166,7 @@ function Hero() {
       <div className="hero__art">
         <div className="hero__blob" aria-hidden="true" />
         <img
-          src="/images/hero-dogs.png"
+          src="/images/Ca4.png"
           alt="Three golden retriever puppies available to borrow"
           className="hero__cutout"
         />
@@ -327,14 +327,22 @@ function Included() {
 function MobileApp() {
   return (
     <section className="mx-auto max-w-(--max-w) px-6 pt-14">
-      <div className="flex flex-row items-center justify-between gap-8">
-        <div className="flex flex-col"> 
-            <span className="text-6xl">Download Our</span>
-        <span className="text-6xl font-semibold">Mobile App</span>
-        <img src="/images/Googleplay.png" alt="Mobile app preview" className="mt-4 w-full max-w-sm shadow-lg" />
-      </div>
+      <div className="flex flex-row items-center justify-center gap-8">
         <div className="flex">
-          <img src="/images/mobile-hand2.png" alt="Mobile app preview" className="mt-4 w-full max-w-lg" />
+          <img
+            src="/images/Mobile.png"
+            alt="Mobile app preview"
+            className="mt-4 w-full max-w-sm"
+          />
+        </div>
+        <div className="flex flex-col">
+          <span className="text-6xl">Download Our</span>
+          <span className="text-6xl font-semibold">Mobile App</span>
+          <img
+            src="/images/Googleplay.png"
+            alt="Mobile app preview"
+            className="mt-4 w-full max-w-sm"
+          />
         </div>
       </div>
     </section>

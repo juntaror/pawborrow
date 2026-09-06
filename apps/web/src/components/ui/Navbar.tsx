@@ -1,5 +1,8 @@
 import { Link, NavLink } from "react-router-dom";
-import NotificationsDropdown from "./NotificationsDropdown";
+import "@/styles/Navbar.css";
+import { UserRound } from 'lucide-react';
+import { Search } from 'lucide-react';
+import NotificationsDropdown from "./Notifcation";
 
 const NOTIFICATIONS = [
   { id: 1, name: 'Milo', action: 'booking confirmed', time: '2 hours ago' },
@@ -9,14 +12,14 @@ const NOTIFICATIONS = [
 
 export default function Navbar() {
   return (
-    <header className="navbar">
-      <div className="navbar__inner">
-        <Link to="/" className="navbar__logo">
-          <span className="navbar__logo-mark">🐾</span> Paw
-          <span className="navbar__logo-accent">Borrow</span>
+    <header className="navbar sticky top-0 pt-4 px-6 pb-0 z-20 bg-transparent">
+      <div className="navbar__inner flex align-center justify-between gap-6 py-3 px-5 rounded-full shadow-md">
+        <Link to="/" className="navbar__logo flex align-center gap-2 whitespace-nowrap">
+          <img src="/images/pawicon.png" alt="icon" />
+          <span className="font-cherry text-xl">Paw<span className="text-froly-400">Borrow</span></span>
         </Link>
 
-        <nav className="navbar__links" aria-label="Primary">
+        <nav className="navbar__links font-poppins" aria-label="Primary">
           <NavLink to="/" end className={({ isActive }) => (isActive ? "is-active" : "")}>
             Home
           </NavLink>
@@ -26,23 +29,22 @@ export default function Navbar() {
           <NavLink to="/about" className={({ isActive }) => (isActive ? "is-active" : "")}>
             About Us
           </NavLink>
-          <a href="/contact">Contact Us</a>
+          <NavLink to="/contact" className={({ isActive }) => (isActive ? "is-active" : "")}>
+            Contact Us
+          </NavLink>
         </nav>
 
         <div className="navbar__actions">
           <div className="navbar__search">
             <input type="search" placeholder="Search products..." aria-label="Search" />
             <button aria-label="Search">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.6" />
-                <path d="M11 11L14.5 14.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-              </svg>
+              <Search size={18} />
             </button>
           </div>
 
           <NotificationsDropdown notifications={NOTIFICATIONS} />
 
-          <button className="navbar__icon-btn" aria-label="Saved pets">
+          {/*<button className="navbar__icon-btn" aria-label="Saved pets">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
               <path
                 d="M12 21s-7.5-4.6-10-9.1C.4 8.3 2 4.5 5.7 4c2.1-.3 4 .8 6.3 3.1C14.3 4.8 16.2 3.7 18.3 4c3.7.5 5.3 4.3 3.7 7.9C19.5 16.4 12 21 12 21Z"
@@ -60,13 +62,10 @@ export default function Navbar() {
               <ellipse cx="41" cy="14" rx="6.5" ry="8.5" fill="currentColor" />
               <ellipse cx="52" cy="26" rx="6" ry="8" fill="currentColor" />
             </svg>
-          </Link>
+          </Link> */}
 
           <NavLink to="/login" className="navbar__icon-btn" aria-label="Sign in">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.5" />
-              <path d="M4.5 20c1.5-4 5-6 7.5-6s6 2 7.5 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
+            <UserRound size={18} />
           </NavLink>
         </div>
       </div>

@@ -142,10 +142,10 @@
 .hero__cutout {
   position: absolute;
   left: 50%;
-  bottom: 6%;
+  bottom: -9%;
   transform: translateX(-50%);
-  width: 92%;
-  max-width: 520px;
+  width: 100%;
+  max-width: 560px;
   height: auto;
   filter: drop-shadow(0 20px 24px rgba(0, 0, 0, 0.22));
 }
