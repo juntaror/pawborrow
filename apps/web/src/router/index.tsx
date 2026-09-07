@@ -8,6 +8,7 @@ import Privacy from "@/pages/Privacy";
 import Booking from "@/pages/Booking";
 import Register from "@/pages/Register";
 import Contact from "@/pages/ContactPage";
+import Verify from "@/pages/Verify";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -18,7 +19,8 @@ const router = createBrowserRouter([
   { path: "/tos", element: <Tos /> },
   { path: "/privacy", element: <Privacy /> },
   { path: "/register", element: <Register /> },
-  { path: "/contact", element: <Contact/>}
+  { path: "/contact", element: <Contact/>},
+  { path: "/verify", element: <Verify /> }
 ]);
 
 export default router;

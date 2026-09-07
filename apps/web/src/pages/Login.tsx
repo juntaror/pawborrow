@@ -114,16 +114,6 @@ export default function Login() {
             <Link to="/register" className="text-[#6f6f6f] hover:text-[#879b7b]">Sign up</Link>
           </p>
 
-          {/*
-          <p className="mt-4 text-center text-xs text-[#999]">
-            Administrator?{" "}
-            <a
-              href="/admin/login"
-              className="text-[#6f6f6f] hover:text-[#879b7b]"
-            >
-              Click here
-            </a>
-          </p> */}
         </div>
       </div>
     </main>

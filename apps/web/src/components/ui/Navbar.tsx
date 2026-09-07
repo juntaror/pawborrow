@@ -1,44 +1,87 @@
 import { Link, NavLink } from "react-router-dom";
 import "@/styles/Navbar.css";
-import { UserRound } from 'lucide-react';
-import { Search } from 'lucide-react';
+import { UserRound } from "lucide-react";
+import { Search } from "lucide-react";
 import NotificationsDropdown from "./Notifcation";
 
 const NOTIFICATIONS = [
-  { id: 1, name: 'Milo', action: 'booking confirmed', time: '2 hours ago' },
-  { id: 2, name: 'Buddy', action: 'now available for the weekend', time: '1 day ago' },
-  { id: 3, name: 'Bella', action: 'is due back on Friday', time: '2 days ago' },
+  { id: 1, name: "Milo", action: "booking confirmed", time: "2 hours ago" },
+  {
+    id: 2,
+    name: "Buddy",
+    action: "now available for the weekend",
+    time: "1 day ago",
+  },
+  { id: 3, name: "Bella", action: "is due back on Friday", time: "2 days ago" },
 ];
 
 export default function Navbar() {
   return (
     <header className="navbar sticky top-0 pt-4 px-6 pb-0 z-20 bg-transparent">
       <div className="navbar__inner flex align-center justify-between gap-6 py-3 px-5 rounded-full shadow-md">
-        <Link to="/" className="navbar__logo flex align-center gap-2 whitespace-nowrap">
+        <Link
+          to="/"
+          className="navbar__logo flex align-center gap-2 whitespace-nowrap"
+        >
           <img src="/images/pawicon.png" alt="icon" />
-          <span className="font-cherry text-xl">Paw<span className="text-froly-400">Borrow</span></span>
+          <span className="font-cherry text-xl">
+            Paw<span className="text-froly-400">Borrow</span>
+          </span>
         </Link>
 
         <nav className="navbar__links font-poppins" aria-label="Primary">
-          <NavLink to="/" end className={({ isActive }) => (isActive ? "is-active" : "")}>
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              isActive
+                ? "is-active underline decoration-2 underline-offset-4"
+                : ""
+            }
+          >
             Home
           </NavLink>
-          <NavLink to="/pets" className={({ isActive }) => (isActive ? "is-active" : "")}>
+          <NavLink
+            to="/pets"
+            className={({ isActive }) =>
+              isActive
+                ? "is-active underline decoration-2 underline-offset-4"
+                : ""
+            }
+          >
             Pets
           </NavLink>
-          <NavLink to="/about" className={({ isActive }) => (isActive ? "is-active" : "")}>
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              isActive
+                ? "is-active underline decoration-2 underline-offset-4"
+                : ""
+            }
+          >
             About Us
           </NavLink>
-          <NavLink to="/contact" className={({ isActive }) => (isActive ? "is-active" : "")}>
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              isActive
+                ? "is-active underline decoration-2 underline-offset-4"
+                : ""
+            }
+          >
             Contact Us
           </NavLink>
         </nav>
 
         <div className="navbar__actions">
           <div className="navbar__search">
-            <input type="search" placeholder="Search products..." aria-label="Search" />
+            <input
+              type="search"
+              placeholder="Search products..."
+              aria-label="Search"
+            />
             <button aria-label="Search">
-              <Search size={18} />
+              <Search size={20} />
             </button>
           </div>
 
@@ -64,8 +107,12 @@ export default function Navbar() {
             </svg>
           </Link> */}
 
-          <NavLink to="/login" className="navbar__icon-btn" aria-label="Sign in">
-            <UserRound size={18} />
+          <NavLink
+            to="/login"
+            className="navbar__icon-btn"
+            aria-label="Sign in"
+          >
+            <UserRound size={20} />
           </NavLink>
         </div>
       </div>

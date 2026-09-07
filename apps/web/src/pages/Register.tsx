@@ -1,34 +1,33 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "@repo/api";
+import { z } from "zod";
 
-export default function Signup() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signUpSchema } from "@/utils/validation";
+
+type FormData = z.infer<typeof signUpSchema>;
+
+export default function Register() {
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>({
+    resolver: zodResolver(signUpSchema),
+  });
+
+  const onSubmit = async (data: FormData) => {
     setError("");
-
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
-
-    setLoading(true);
     try {
-      await signUp(email, password, firstName, lastName);
+      await signUp(data.email, data.password, data.firstName, data.lastName);
       navigate("/login");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Registration failed");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -39,13 +38,13 @@ export default function Signup() {
           <div className="absolute inset-0 bg-[rgba(30,18,10,0.75)]">
             <div className="relative h-full flex flex-col justify-end p-1">
               <div className="absolute top-0 left-0 px-4">
-                <a href="/">
+                <Link to="/">
                   <img
                     src="/images/PawBorrowLogo.png"
                     alt="PawBorrow Logo"
                     className="h-41.25 w-41.25"
                   />
-                </a>
+                </Link>
               </div>
 
               <div className="relative h-full flex flex-col justify-end p-12">
@@ -82,8 +81,8 @@ export default function Signup() {
             </p>
           </div>
 
-          <form className="mt-8 space-y-5" onSubmit={handleRegister}>
-            {error && <p className="text-center text-sm text-red-500">{error}</p>}
+          <form className="mt-8 space-y-5" onSubmit={handleSubmit(onSubmit)}>
+            {error && <p className="text-red-500 text-xs">{error}</p>}
             <div className="flex gap-4">
               <div className="flex-1">
                 <label className="mb-2 block font-body text-xs uppercase text-black">
@@ -93,10 +92,15 @@ export default function Signup() {
                 <input
                   type="text"
                   required
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  autoComplete="off"
+                  {...register("firstName")}
                   className="h-11.5 w-full rounded-xl border border-black bg-white px-4 py-3 font-body text-sm"
                 />
+                {errors.firstName && (
+                  <p className="text-red-500 text-xs">
+                    {errors.firstName.message}
+                  </p>
+                )}
               </div>
 
               <div className="flex-1">
@@ -106,11 +110,15 @@ export default function Signup() {
 
                 <input
                   type="text"
-                  required
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  {...register("lastName")}
+                  autoComplete="off"
                   className="h-11.5 w-full rounded-xl border border-black bg-white px-4 py-3 font-body text-sm"
                 />
+                {errors.lastName && (
+                  <p className="text-red-500 text-xs">
+                    {errors.lastName.message}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -122,10 +130,13 @@ export default function Signup() {
               <input
                 type="email"
                 required
+                autoComplete="off"
                 className="h-11.5 w-full rounded-xl border border-black bg-white px-4 py-3 font-body text-sm"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register("email")}
               />
+              {errors.email && (
+                <p className="text-red-500 text-xs">{errors.email.message}</p>
+              )}
             </div>
 
             <div>
@@ -136,10 +147,15 @@ export default function Signup() {
               <input
                 type="password"
                 required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="off"
+                {...register("password")}
                 className="h-11.5 w-full rounded-xl border border-black bg-white px-4 py-3 font-body text-sm"
               />
+              {errors.password && (
+                <p className="text-red-500 text-xs">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
             <div>
@@ -149,19 +165,24 @@ export default function Signup() {
 
               <input
                 type="password"
-                required 
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                autoComplete="off"
+                {...register("confirmPassword")}
                 className="h-11.5 w-full rounded-xl border border-black bg-white px-4 py-3 font-body text-sm"
               />
+              {errors.confirmPassword && (
+                <p className="text-red-500 text-xs">
+                  {errors.confirmPassword.message}
+                </p>
+              )}
             </div>
 
             <button
               type="submit"
-              disabled={loading}
+              disabled={isSubmitting}
               className="h-13 w-full rounded-full bg-[#879b7b] text-sm font-normal uppercase text-white transition-colors hover:bg-[#748a68]"
             >
-              {loading ? "Creating Account..." : "Create Account"}
+              {isSubmitting ? "Creating Account..." : "Create Account"}
             </button>
           </form>
 
@@ -193,19 +214,6 @@ export default function Signup() {
               Log in
             </Link>
           </p>
-
-          {/* Administrator */}
-          {/*
-          <p className="mt-4 text-center text-xs text-[#999]">
-            Administrator?{" "}
-            <a
-              href="/admin/login"
-              className="text-[#6f6f6f] hover:text-[#879b7b]"
-            >
-              Click here
-            </a>
-          </p>
-          */}
         </div>
       </div>
     </main>
