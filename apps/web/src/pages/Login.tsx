@@ -1,26 +1,37 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signIn } from "@repo/api";
+import { z } from "zod";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema} from "@/utils/validation";
+
+type FormData = z.infer<typeof loginSchema>;
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+  });
+
+ const onSubmit = async (data: FormData) => {
+    setError("");
     try {
-      await signIn(email, password);
+      await signIn(data.email, data.password);
       navigate("/");
-    } catch (error) {
-      setError("Invalid email or password");
-    } finally {
-      setLoading(false);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Invalid email or password");
     }
   };
+
 
   return (
     <main className="flex min-h-screen bg-white">
@@ -65,17 +76,18 @@ export default function Login() {
             </p>
           </div>
           
-          <form className="space-y-5" onSubmit={handleLogin}>
+          <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+            {error && <p className="text-sm text-red-500 text-center">{error}</p>}
             <div className="mb-4">
               <label className="font-body text-xs uppercase text-black block mb-2">
                 Email
               </label>
               <input
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register("email")}
                 className="h-11.5 w-full rounded-xl border border-black bg-whtie px-4 py-3 font-body text-sm"
               />
+              {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
             </div>
             <div className="mt-4">
               <label className="font-body text-xs uppercase text-black block">
@@ -83,10 +95,10 @@ export default function Login() {
               </label>
               <input
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value )}
+                {...register("password")}
                 className="h-11.5 w-full rounded-xl border border-black bg-whtie px-4 py-3 font-body text-sm"
               />
+              {errors.password && <p className="text-xs text-red-500">{errors.password.message}</p>}
             </div>
 
             <div className="text-right">
@@ -95,9 +107,11 @@ export default function Login() {
 
             <button
               type="submit"
+               disabled={isSubmitting}
               className="h-13 w-full rounded-full bg-[#879b7b] text-sm font-normal uppercase text-white transition-colors hover:bg-[#748a68]"
+
             >
-              Log In
+               {isSubmitting ? "Logging in..." : "Log In"}
             </button>
           </form>
 
