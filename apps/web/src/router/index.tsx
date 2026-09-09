@@ -9,6 +9,7 @@ import Booking from "@/pages/Booking";
 import Register from "@/pages/Register";
 import Contact from "@/pages/ContactPage";
 import Verify from "@/pages/Verify";
+import Profile from "@/pages/Profile";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -20,7 +21,8 @@ const router = createBrowserRouter([
   { path: "/privacy", element: <Privacy /> },
   { path: "/register", element: <Register /> },
   { path: "/contact", element: <Contact/>},
-  { path: "/verify", element: <Verify /> }
+  { path: "/verify", element: <Verify /> },
+  {path : "/profile", element: <Profile /> }
 ]);
 
 export default router;
