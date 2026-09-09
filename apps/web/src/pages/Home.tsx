@@ -330,9 +330,7 @@ function MobileApp() {
         <div className="flex flex-col">
           <span className="text-6xl">Download Our</span>
           <span className="text-6xl font-semibold">Mobile App</span>
-          <Link to="/download" className="btn btn--dark">
-            Download
-          </Link>
+          <img src="/images/Googleplay.png" alt="Google Play Store" className="mt-4 w-full max-w-xs" />
         </div>
       </div>
     </section>

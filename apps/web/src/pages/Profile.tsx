@@ -1,4 +1,5 @@
 import Navbar from "../components/ui/Navbar"
+import {} from "@repo/api"
 import { User, ArrowRight, Mail, KeyRound, Phone, Trash, CalendarClock, Megaphone, UsersRound,} from 'lucide-react';
 
 export default function Profile() {

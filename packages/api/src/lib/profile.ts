@@ -5,7 +5,7 @@ export async function getMyProfile() {
   if (!user) return null;
 
   const { data, error } = await supabase
-    .from('profiles')
+    .from('user_profiles')
     .select('*')
     .eq('id', user.id)
     .single();
@@ -19,7 +19,7 @@ export async function updateMyProfile(updates: { first_name?: string; last_name?
   if (!user) throw new Error('Not signed in');
 
   const { data, error } = await supabase
-    .from('profiles')
+    .from('user_profiles')
     .update(updates)
     .eq('id', user.id)
     .select()

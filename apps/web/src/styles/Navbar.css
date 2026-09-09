@@ -42,10 +42,6 @@
   color: var(--muted);
 }
 
-.navbar__links .is-active {
-  color: var(--coral-dark);
-}
-
 .navbar__actions {
   display: flex;
   align-items: center;

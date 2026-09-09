@@ -180,22 +180,21 @@ export default function Register() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="h-13 w-full rounded-full bg-[#879b7b] text-sm font-normal uppercase text-white transition-colors hover:bg-[#748a68]"
+              className="h-13 w-full rounded-md  text-sm font-medium uppercase bg-froly-400 text-white hover:bg-froly-500"
             >
-              {isSubmitting ? "Creating Account..." : "Create Account"}
+              {isSubmitting ? "Creating Account..." : "Sign Up"}
             </button>
           </form>
 
           <p className="mt-2 px-2 text-center font-body text-[12px] leading-relaxed text-[#888]">
-            By signing up, you agree to our{" "}
+            By continuing, you agree to {" "}
             <Link
               to="/tos"
               className="text-[#6f6f6f] underline underline-offset-2 transition-colors hover:text-[#879b7b]"
             >
               Terms of Service
             </Link>{" "}
-            and acknowledge that PawBorrow and each Member process your personal
-            data in accordance with our{" "}
+            &{" "}
             <Link
               to="/privacy"
               className="text-[#6f6f6f] underline underline-offset-2 transition-colors hover:text-[#879b7b]"

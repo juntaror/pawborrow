@@ -35,8 +35,8 @@ export default function Navbar() {
             end
             className={({ isActive }) =>
               isActive
-                ? "is-active underline decoration-2 underline-offset-4"
-                : ""
+                ? "is-active text-froly-500 relative after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-froly-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+                : "text-froly-400 relative after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-froly-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
             }
           >
             Home
@@ -45,8 +45,8 @@ export default function Navbar() {
             to="/pets"
             className={({ isActive }) =>
               isActive
-                ? "is-active underline decoration-2 underline-offset-4"
-                : ""
+                ? "is-active text-froly-500 relative after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-froly-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+                : "text-froly-400 relative after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-froly-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
             }
           >
             Pets
@@ -55,8 +55,8 @@ export default function Navbar() {
             to="/about"
             className={({ isActive }) =>
               isActive
-                ? "is-active underline decoration-2 underline-offset-4"
-                : ""
+                ? "is-active text-froly-500 relative after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-froly-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+                : "text-froly-400 relative after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-froly-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
             }
           >
             About Us
@@ -65,8 +65,8 @@ export default function Navbar() {
             to="/contact"
             className={({ isActive }) =>
               isActive
-                ? "is-active underline decoration-2 underline-offset-4"
-                : ""
+                ? "is-active text-froly-500 relative after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-froly-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+                : "text-froly-400 relative after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-froly-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
             }
           >
             Contact Us
