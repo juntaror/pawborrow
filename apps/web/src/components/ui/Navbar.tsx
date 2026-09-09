@@ -108,7 +108,7 @@ export default function Navbar() {
           </Link> */}
 
           <NavLink
-            to="/profile"
+            to="/login"
             className="navbar__icon-btn"
             aria-label="Sign in"
           >
