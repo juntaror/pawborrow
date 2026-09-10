@@ -92,6 +92,14 @@
   gap: 14px;
 }
 
+.hero__actions .btn {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+}
+
 .hero__art {
   position: relative;
   min-height: 380px;
@@ -294,7 +302,19 @@
   line-height: 1.6;
 }
 
-.section-hero .btn--dark {
+.section-hero__text .btn {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.section-hero__text .btn--dark {
   background: var(--ink);
 }
 
