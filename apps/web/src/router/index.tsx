@@ -10,6 +10,7 @@ import Register from "@/pages/Register";
 import Contact from "@/pages/ContactPage";
 import Verify from "@/pages/Verify";
 import Profile from "@/pages/Profile";
+import Favorites from "@/pages/Favorites";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -20,9 +21,10 @@ const router = createBrowserRouter([
   { path: "/tos", element: <Tos /> },
   { path: "/privacy", element: <Privacy /> },
   { path: "/register", element: <Register /> },
-  { path: "/contact", element: <Contact/>},
+  { path: "/contact", element: <Contact /> },
   { path: "/verify", element: <Verify /> },
-  {path : "/profile", element: <Profile /> }
+  { path: "/profile", element: <Profile /> },
+  { path: "/favorites", element: <Favorites /> },
 ]);
 
 export default router;

@@ -1,7 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import "@/styles/Navbar.css";
-import { UserRound } from "lucide-react";
-import { Search } from "lucide-react";
+import { UserRound, Heart, Search } from "lucide-react";
 import NotificationsDropdown from "./Notifcation";
 
 const NOTIFICATIONS = [
@@ -16,6 +15,9 @@ const NOTIFICATIONS = [
 ];
 
 export default function Navbar() {
+  // Replace this with your actual favorites count (context/store/API)
+  const likedCount = 1;
+
   return (
     <header className="navbar sticky top-0 pt-4 px-6 pb-0 z-20 bg-transparent">
       <div className="navbar__inner flex align-center justify-between gap-6 py-3 px-5 rounded-full shadow-md">
@@ -87,25 +89,16 @@ export default function Navbar() {
 
           <NotificationsDropdown notifications={NOTIFICATIONS} />
 
-          {/*<button className="navbar__icon-btn" aria-label="Saved pets">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M12 21s-7.5-4.6-10-9.1C.4 8.3 2 4.5 5.7 4c2.1-.3 4 .8 6.3 3.1C14.3 4.8 16.2 3.7 18.3 4c3.7.5 5.3 4.3 3.7 7.9C19.5 16.4 12 21 12 21Z"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              />
-            </svg>
-          </button>
-
-          <Link to="/booking" className="navbar__icon-btn navbar__icon-btn--coral" aria-label="Quick booking">
-            <svg viewBox="0 0 64 64" width="18" height="18">
-              <ellipse cx="32" cy="40" rx="15" ry="12" fill="currentColor" />
-              <ellipse cx="14" cy="24" rx="6" ry="8" fill="currentColor" />
-              <ellipse cx="27" cy="14" rx="6.5" ry="8.5" fill="currentColor" />
-              <ellipse cx="41" cy="14" rx="6.5" ry="8.5" fill="currentColor" />
-              <ellipse cx="52" cy="26" rx="6" ry="8" fill="currentColor" />
-            </svg>
-          </Link> */}
+          <NavLink
+            to="/favorites"
+            className="navbar__icon-btn"
+            aria-label="Booking history and liked pets"
+          >
+            <Heart size={20} />
+            {likedCount > 0 && (
+              <span className="navbar__badge">{likedCount}</span>
+            )}
+          </NavLink>
 
           <NavLink
             to="/login"

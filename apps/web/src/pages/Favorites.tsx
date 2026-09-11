@@ -28,16 +28,16 @@ const BOOKINGS: Booking[] = [
   {
     id: 1,
     petName: "Milo",
-    image: "/images/pets/milo.jpg",
-    breed: "Golden Retriever",
+    image: "/images/featured-milo.jpg",
+    breed: "Scottish Fold",
     date: "August 8",
     status: "Completed",
   },
   {
     id: 2,
     petName: "Buddy",
-    image: "/images/pets/buddy.jpg",
-    breed: "Labrador",
+    image: "/images/featured-buddy.jpg",
+    breed: "Pug",
     date: "August 15",
     status: "Upcoming",
   },
@@ -47,14 +47,14 @@ const LIKED_PETS: LikedPet[] = [
   {
     id: 1,
     name: "Nidra",
-    image: "/images/pets/nidra.jpg",
+    image: "/images/cat.png", // no nidra image exists — using a placeholder for now
     breed: "Scottish Fold",
     bookedDate: "August 8",
   },
   {
     id: 2,
     name: "Yuki",
-    image: "/images/pets/yuki.jpg",
+    image: "/images/cat.png", // no yuki image exists — using a placeholder for now
     breed: "Scottish Fold",
     age: "5 Months (Kitten)",
     bookedDate: "August 8",
@@ -62,21 +62,21 @@ const LIKED_PETS: LikedPet[] = [
   {
     id: 3,
     name: "Chewy",
-    image: "/images/pets/chewy.jpg",
+    image: "/images/chewy.png",
     breed: "Scottish Fold",
     bookedDate: "August 8",
   },
   {
     id: 4,
     name: "Haru",
-    image: "/images/pets/haru1.jpg",
+    image: "/images/haru1.png",
     breed: "Scottish Fold",
     bookedDate: "August 8",
   },
   {
     id: 5,
     name: "Haru",
-    image: "/images/pets/haru2.jpg",
+    image: "/images/haru2.png",
     breed: "Scottish Fold",
     bookedDate: "August 8",
   },
