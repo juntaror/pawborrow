@@ -1,7 +1,9 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import "@/styles/Navbar.css";
 import { UserRound, Heart, Search } from "lucide-react";
 import NotificationsDropdown from "./Notifcation";
+import ProfileDropdown from "./ProfileDropdown";
+import { useAuth, useProfile, signOut } from "@repo/api";
 
 const NOTIFICATIONS = [
   { id: 1, name: "Milo", action: "booking confirmed", time: "2 hours ago" },
@@ -15,8 +17,15 @@ const NOTIFICATIONS = [
 ];
 
 export default function Navbar() {
-  // Replace this with your actual favorites count (context/store/API)
-  const likedCount = 1;
+
+  const { user, loading } = useAuth();
+  const { data: profile } = useProfile();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate("/");
+  };
 
   return (
     <header className="navbar sticky top-0 pt-4 px-6 pb-0 z-20 bg-transparent">
@@ -35,41 +44,25 @@ export default function Navbar() {
           <NavLink
             to="/"
             end
-            className={({ isActive }) =>
-              isActive
-                ? "is-active text-froly-500 relative after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-froly-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
-                : "text-froly-400 relative after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-froly-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
-            }
+            className={({ isActive }) => `nav-link ${isActive ? "text-froly-600" : ""}`}
           >
             Home
           </NavLink>
           <NavLink
             to="/pets"
-            className={({ isActive }) =>
-              isActive
-                ? "is-active text-froly-500 relative after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-froly-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
-                : "text-froly-400 relative after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-froly-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
-            }
+            className={({ isActive }) => `nav-link ${isActive ? "text-froly-600" : ""}`}
           >
             Pets
           </NavLink>
           <NavLink
             to="/about"
-            className={({ isActive }) =>
-              isActive
-                ? "is-active text-froly-500 relative after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-froly-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
-                : "text-froly-400 relative after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-froly-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
-            }
+            className={({ isActive }) => `nav-link ${isActive ? "text-froly-600" : ""}`}
           >
             About Us
           </NavLink>
           <NavLink
             to="/contact"
-            className={({ isActive }) =>
-              isActive
-                ? "is-active text-froly-500 relative after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-froly-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
-                : "text-froly-400 relative after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-froly-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
-            }
+            className={({ isActive }) => `nav-link ${isActive ? "text-froly-600" : ""}`}
           >
             Contact Us
           </NavLink>
@@ -89,24 +82,27 @@ export default function Navbar() {
 
           <NotificationsDropdown notifications={NOTIFICATIONS} />
 
-          <NavLink
-            to="/favorites"
-            className="navbar__icon-btn"
-            aria-label="Booking history and liked pets"
-          >
-            <Heart size={20} />
-            {likedCount > 0 && (
-              <span className="navbar__badge">{likedCount}</span>
-            )}
-          </NavLink>
-
-          <NavLink
-            to="/login"
-            className="navbar__icon-btn"
-            aria-label="Sign in"
-          >
-            <UserRound size={20} />
-          </NavLink>
+         {!loading && (
+            user ? (
+              <ProfileDropdown
+                user={{
+                  name: [profile?.first_name, profile?.last_name].filter(Boolean).join(" ") || "Account",
+                  email: profile?.email ?? user.email ?? "",
+                  avatar: profile?.avatar_url ?? undefined,
+                }}
+                onLogout={handleLogout}
+              />
+            ) : (
+              <div className="flex items-center gap-1">
+                <NavLink to="/login" className="rounded-full text-froly-500 px-4 py-2 text-sm font-medium hover:bg-froly-100 transition-colors mr-2">
+                 Sign In
+                </NavLink>
+                <NavLink to="/register" className="rounded-full bg-froly-500 text-white px-4 py-2 text-sm font-medium hover:bg-froly-600 transition-colors">
+                  Sign Up
+                </NavLink>
+              </div>
+            )
+          )}
         </div>
       </div>
     </header>

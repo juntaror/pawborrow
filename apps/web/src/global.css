@@ -51,3 +51,19 @@ Retrieved 2026-09-02, License - CC BY-SA 4.0
   --color-froly-900: #7d1f21;
   --color-froly-950: #440b0c;
 }
+
+
+@utility nav-link {
+  @apply relative text-froly-400
+    after:content-['']
+    after:absolute
+    after:left-1/2
+    after:bottom-0
+    after:w-0
+    after:h-0.5
+    after:bg-froly-500
+    after:transition-all
+    after:duration-300
+    hover:after:w-full
+    hover:after:left-0;
+}

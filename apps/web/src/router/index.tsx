@@ -10,7 +10,7 @@ import Register from "@/pages/Register";
 import Contact from "@/pages/ContactPage";
 import Verify from "@/pages/Verify";
 import Profile from "@/pages/Profile";
-import Favorites from "@/pages/Favorites";
+import Favorite from "@/pages/Favorites";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -23,8 +23,8 @@ const router = createBrowserRouter([
   { path: "/register", element: <Register /> },
   { path: "/contact", element: <Contact /> },
   { path: "/verify", element: <Verify /> },
-  { path: "/profile", element: <Profile /> },
-  { path: "/favorites", element: <Favorites /> },
+  { path: "/favorites", element: <Favorite /> },
+  {path : "/profile", element: <Profile /> }
 ]);
 
 export default router;
