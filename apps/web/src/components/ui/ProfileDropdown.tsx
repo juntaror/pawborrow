@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { UserRound, Settings, LogOut, Bookmark, Heart} from "lucide-react";
+import { UserRound, Settings, LogOut, Bookmark, Heart } from "lucide-react";
 
 interface ProfileDropdownProps {
   user: {
@@ -8,10 +8,10 @@ interface ProfileDropdownProps {
     email: string;
     avatar?: string;
   };
-  onLogout: () => void; 
+  onLogout: () => void;
 }
 
-export default function ProfileDropdown({user, onLogout} : ProfileDropdownProps) {
+export default function ProfileDropdown({ user, onLogout }: ProfileDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -27,29 +27,27 @@ export default function ProfileDropdown({user, onLogout} : ProfileDropdownProps)
 
   return (
     <div className="relative inline-block text-left font-poppins" ref={dropdownRef}>
-    
-      <button 
+      <button
         onClick={() => setIsOpen(!isOpen)}
         className="navbar__icon-btn flex items-center gap-1.5 hover:bg-gray-100 transition-colors rounded-full p-1.5 pr-2"
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
         {user.avatar ? (
-          <img 
+          <img
             src={user.avatar}
             alt={user.name}
             className="w-5 h-5 rounded-full object-cover"
           />
         ) : (
-          <UserRound size={20}/>
+          <UserRound size={20} />
         )}
       </button>
 
-      <div 
+      <div
         className={`absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-50 origin-top-right transition-all duration-200
           ${isOpen ? "visible opacity-100 scale-100" : "invisible opacity-0 scale-95"}`}
       >
-        
         <div className="px-4 py-3 border-b border-gray-100 bg-gray-50/50">
           <p className="text-sm font-semibold text-gray-800 truncate">{user.name}</p>
           <p className="text-xs text-gray-500 truncate">{user.email}</p>
@@ -58,7 +56,7 @@ export default function ProfileDropdown({user, onLogout} : ProfileDropdownProps)
         <div className="py-2">
           <Link
             to="/profile"
-            onClick={() => setIsOpen(false)} 
+            onClick={() => setIsOpen(false)}
             className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-froly-50 hover:text-froly-500 transition-colors"
           >
             <Settings size={16} />
@@ -66,7 +64,7 @@ export default function ProfileDropdown({user, onLogout} : ProfileDropdownProps)
           </Link>
 
           <Link
-            to="/favorites"
+            to="/bookings"
             onClick={() => setIsOpen(false)}
             className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-froly-50 hover:text-froly-500 transition-colors"
           >
@@ -74,8 +72,8 @@ export default function ProfileDropdown({user, onLogout} : ProfileDropdownProps)
             <span>History</span>
           </Link>
 
-            <Link
-            to="/settings"
+          <Link
+            to="/favorites"
             onClick={() => setIsOpen(false)}
             className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-froly-50 hover:text-froly-500 transition-colors"
           >
@@ -86,15 +84,16 @@ export default function ProfileDropdown({user, onLogout} : ProfileDropdownProps)
 
         <div className="border-t border-gray-100 py-2">
           <button
-            
-            onClick={() => {setIsOpen(false); onLogout();}}
+            onClick={() => {
+              setIsOpen(false);
+              onLogout();
+            }}
             className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors"
           >
             <LogOut size={16} />
             <span>Sign Out</span>
           </button>
         </div>
-
       </div>
     </div>
   );

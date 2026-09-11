@@ -83,24 +83,28 @@ const CATEGORIES = [
     count: "10 companions",
     tone: "coral" as const,
     image: "/images/category-cats.jpg",
+    filterCategory: "Cat",
   },
   {
     name: "Dogs",
     count: "9 companions",
     tone: "peach" as const,
     image: "/images/category-dogs.jpg",
+    filterCategory: "Dog",
   },
   {
     name: "Guinea Pigs",
     count: "10 companions",
     tone: "sage" as const,
     image: "/images/category-guinea-pigs.jpg",
+    filterCategory: "Guinea Pig",
   },
   {
     name: "Rabbits",
     count: "3 companions",
     tone: "sand" as const,
     image: "/images/category-rabbits.jpg",
+    filterCategory: "Rabbit",
   },
 ];
 
@@ -180,7 +184,11 @@ function Categories() {
 
       <div className="categories__grid">
         {CATEGORIES.map((c) => (
-          <Link to="#browse" className="category-card" key={c.name}>
+          <Link
+            to={`/pets?category=${encodeURIComponent(c.filterCategory)}`}
+            className="category-card"
+            key={c.name}
+          >
             <PhotoTile
               src={c.image}
               alt={c.name}

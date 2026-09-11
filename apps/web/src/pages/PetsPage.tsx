@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import PetsHero from "@/components/layout/Pets/PetHero";
 import PetsCategoryRow from "@/components/layout/Pets/PetsCategoryRow";
 import PetsFilterSidebar from "@/components/layout/Pets/PetFilterSidebar";
@@ -13,8 +14,11 @@ import "@/styles/Pet.css";
 const PAGE_SIZE = 9;
 
 export default function PetsPage() {
-  const [selectedCategory, setSelectedCategory] = useState("Cat");
-  const [selectedBreed, setSelectedBreed] = useState("Scottish Fold");
+  const [searchParams] = useSearchParams();
+  const categoryFromUrl = searchParams.get("category");
+
+  const [selectedCategory, setSelectedCategory] = useState(categoryFromUrl || "Cat");
+  const [selectedBreed, setSelectedBreed] = useState("");
   const [selectedPersonality, setSelectedPersonality] = useState("");
   const [page, setPage] = useState(1);
 
