@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, CalendarClock, PawPrint, Star, ChevronLeft } from 'lucide-react';
+import { LayoutDashboard, Users, CalendarClock, PawPrint, Star, ChevronLeft, } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -31,18 +31,11 @@ export default function Sidebar() {
         />
       </button>
 
-      <div className="flex flex-col items-center gap-1 px-6 py-8">
-        <span className="text-3xl">🐾</span>
-        {!collapsed && (
-          <>
-            <span className="text-lg font-extrabold leading-tight">
-              PawBorrow
-            </span>
-            <span className="text-[10px] tracking-wide text-sky-100">
-              FOR PET &amp; PET SUPPLIES
-            </span>
-          </>
-        )}
+      <div className="flex flex-row items-center gap-1 px-6 py-8">
+        <PawPrint size={32} className="text-white" />
+          <span className="font-cherry text-xl">
+            PawBorrow Admin
+          </span>
       </div>
 
       <nav className="flex flex-col gap-2 px-4">
