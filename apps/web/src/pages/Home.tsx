@@ -284,7 +284,7 @@ function SecondaryHero() {
 
       <div className="container px-0 my-16 pb-15">
         <div className="flex flex-wrap justify-center gap-8">
-          <div className="shadow-xl flex flex-col items-center px-4 py-6 w-62.5 h-57.5 md:w-75 md:h-70 bg-boston-blue-50 rounded-3xl font-inter">
+          <div className="shadow-xl flex flex-col items-center px-4 py-6 w-62.5 h-57.5 md:w-75 md:h-70 bg-boston-blue-100 rounded-3xl font-inter">
             <MapPin size={36} className="text-sherpa-blue-800 mt-2" />
             <h3 className="text-base md:text-xl mt-4 md:mt-7 font-inter text-sherpa-blue-800 font-bold text-center mb-4 tracking-tighter">
               Pick a Buddy
@@ -398,7 +398,7 @@ function SecondaryHero() {
                 />
                 <div>
                   <div className="text-sm font-medium text-neutral-900">
-                    Steven
+                    Steven Macawille
                   </div>
                 </div>
               </div>

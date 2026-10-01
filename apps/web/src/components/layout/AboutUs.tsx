@@ -100,16 +100,7 @@ export default function AboutUs() {
 
       <div className="about__testimonials">
         <div className="about__video">
-          <img
-            src="/images/testimonial-video.jpg"
-            alt="Customer testimonial video thumbnail"
-          />
-          <button
-            className="about__play-btn"
-            aria-label="Play testimonial video"
-          >
-            ▶
-          </button>
+    
         </div>
       </div>
 

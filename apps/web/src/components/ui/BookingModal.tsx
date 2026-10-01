@@ -19,8 +19,8 @@ export default function BookingModal() {
             </button>
 
             <div className="px-7 pb-2 pt-8 text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#f0f5ed]">
-                <ShieldCheck size={30} className="text-[#708464]" />
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-tuft-bush-100">
+                <ShieldCheck size={30} className="text-rust-700" />
               </div>
             </div>
 
@@ -62,7 +62,7 @@ export default function BookingModal() {
               <div className="mt-4 flex gap-3 rounded-2xl border border-[#e2e8dc] bg-white p-4 text-left">
                 <ShieldCheck
                   size={20}
-                  className="mt-0.5 shrink-0 text-[#879b7b]"
+                  className="mt-0.5 shrink-0 text-rust-700"
                 />
 
                 <p className="text-xs leading-5 text-gray-500">
@@ -74,7 +74,7 @@ export default function BookingModal() {
               <button
                 type="button"
                 onClick={() => setShowBookingNotice(false)}
-                className="mt-6 h-12 w-full rounded-xl bg-[#879b7b] text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-[#748a68]"
+                className="mt-6 h-12 w-full rounded-xl bg-froly-400 text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-froly-500"
               >
                 I Understand
               </button>

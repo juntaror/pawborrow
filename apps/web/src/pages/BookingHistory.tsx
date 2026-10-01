@@ -6,11 +6,7 @@ import "@/styles/Favorites.css";
 
 export default function BookingHistory() {
   const navigate = useNavigate();
-  const {
-    data: bookings,
-    isLoading,
-    error,
-  } = useBookings();
+  const { data: bookings, isLoading, error } = useBookings();
 
   return (
     <>
@@ -51,8 +47,7 @@ export default function BookingHistory() {
             <div className="booking-list">
               {bookings.map((booking) => {
                 const pet = booking.pet;
-                const canReview =
-                  booking.status.toLowerCase() === "completed";
+                const canReview = booking.status.toLowerCase() === "completed";
 
                 return (
                   <div key={booking.booking_id} className="booking-row">

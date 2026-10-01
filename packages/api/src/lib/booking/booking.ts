@@ -6,11 +6,11 @@ export type CreateBookingInput = {
   time_slot: string;
   duration_minutes: number;
 };
-export type BookingStatus =
-  | "pending"
-  | "confirmed"
-  | "cancelled"
-  | "completed";
+
+export type CompleteMockCheckoutInput = CreateBookingInput & {
+  payment_method: string;
+};
+export type BookingStatus = "pending" | "confirmed" | "cancelled" | "completed";
 
 export type Booking = {
   booking_id: number;
@@ -28,30 +28,18 @@ export type Booking = {
   } | null;
 };
 
-export async function createBooking(input: CreateBookingInput) {
-  const {
-    data: { user },
-    error: userError,
-  } = await supabase.auth.getUser();
-
-  if (userError) {
-    throw userError;
-  }
-
-  if (!user) {
-    throw new Error("You must be signed in to book a pet.");
-  }
-
-  const { data, error } = await supabase.rpc("create_booking", {
+// The database RPC creates the booking and its paid mock payment
+// in one transaction. A failed insert leaves neither row behind.
+export async function completeMockCheckout(input: CompleteMockCheckoutInput) {
+  const { data, error } = await supabase.rpc("complete_mock_checkout", {
     p_pet_id: input.pet_id,
     p_reservation_date: input.reservation_date,
     p_time_slot: input.time_slot,
     p_duration_minutes: input.duration_minutes,
+    p_payment_method: input.payment_method,
   });
 
-  if (error) {
-    throw error;
-  }
+  if (error) throw error;
 
   return data;
 }
@@ -70,21 +58,27 @@ export async function getBookings(): Promise<Booking[]> {
 
   const { data, error } = await supabase
     .from("booking")
-    .select(`
+    .select(
+      `
       booking_id,
       reservation_date,
       time_slot,
       duration_minutes,
       status,
       created_at,
+      payment!inner (
+        payment_status
+      ),
       pet (
         pet_id,
         name,
         breed,
         image_url
       )
-    `)
+    `,
+    )
     .eq("user_id", user.id)
+    .eq("payment.payment_status", "paid")
     .order("reservation_date", { ascending: false });
 
   if (error) throw error;
@@ -92,11 +86,10 @@ export async function getBookings(): Promise<Booking[]> {
   return (data ?? []).map((booking) => ({
     ...booking,
     pet: Array.isArray(booking.pet)
-      ? booking.pet[0] ?? null
-      : booking.pet ?? null,
+      ? (booking.pet[0] ?? null)
+      : (booking.pet ?? null),
   }));
 }
-
 
 export type AdminBooking = {
   booking_id: number;
@@ -123,13 +116,17 @@ export type AdminBooking = {
 export async function getAdminBookings(): Promise<AdminBooking[]> {
   const { data, error } = await supabase
     .from("booking")
-    .select(`
+    .select(
+      `
       booking_id,
       reservation_date,
       time_slot,
       duration_minutes,
       status,
       created_at,
+      payment!inner (
+        payment_status
+      ),
       pet (
         pet_id,
         name,
@@ -142,8 +139,10 @@ export async function getAdminBookings(): Promise<AdminBooking[]> {
         last_name,
         email
       )
-    `)
+    `,
+    )
     .neq("status", "completed")
+    .eq("payment.payment_status", "paid")
     .order("reservation_date", { ascending: true });
 
   if (error) throw error;
@@ -152,20 +151,18 @@ export async function getAdminBookings(): Promise<AdminBooking[]> {
     ...booking,
 
     pet: Array.isArray(booking.pet)
-      ? booking.pet[0] ?? null
-      : booking.pet ?? null,
+      ? (booking.pet[0] ?? null)
+      : (booking.pet ?? null),
 
-    user_profile: Array.isArray(
-      booking.user_profiles,
-    )
-      ? booking.user_profiles[0] ?? null
-      : booking.user_profiles ?? null,
+    user_profile: Array.isArray(booking.user_profiles)
+      ? (booking.user_profiles[0] ?? null)
+      : (booking.user_profiles ?? null),
   }));
 }
 
 export async function updateBookingStatus(
   bookingId: number,
-  status: BookingStatus
+  status: BookingStatus,
 ) {
   const { data, error } = await supabase
     .from("booking")
@@ -183,7 +180,6 @@ export async function updateBookingStatus(
   return data;
 }
 
-
 export type RescheduleBookingInput = {
   bookingId: number;
   reservationDate: string;
@@ -191,9 +187,7 @@ export type RescheduleBookingInput = {
   durationMinutes: number;
 };
 
-export async function rescheduleBooking(
-  input: RescheduleBookingInput
-) {
+export async function rescheduleBooking(input: RescheduleBookingInput) {
   const {
     data: { user },
     error: userError,
@@ -221,9 +215,7 @@ export async function rescheduleBooking(
   return data;
 }
 
-export async function adminRescheduleBooking(
-  input: RescheduleBookingInput
-) {
+export async function adminRescheduleBooking(input: RescheduleBookingInput) {
   const {
     data: { user },
     error: userError,
@@ -237,15 +229,12 @@ export async function adminRescheduleBooking(
     throw new Error("You must be signed in.");
   }
 
-  const { data, error } = await supabase.rpc(
-    "admin_reschedule_booking",
-    {
-      p_booking_id: input.bookingId,
-      p_reservation_date: input.reservationDate,
-      p_time_slot: input.timeSlot,
-      p_duration_minutes: input.durationMinutes,
-    },
-  );
+  const { data, error } = await supabase.rpc("admin_reschedule_booking", {
+    p_booking_id: input.bookingId,
+    p_reservation_date: input.reservationDate,
+    p_time_slot: input.timeSlot,
+    p_duration_minutes: input.durationMinutes,
+  });
 
   if (error) {
     throw error;
@@ -257,10 +246,11 @@ export async function adminRescheduleBooking(
 export async function getTotalBookings(): Promise<number> {
   const { count, error } = await supabase
     .from("booking")
-    .select("booking_id", {
+    .select("booking_id, payment!inner(payment_status)", {
       count: "exact",
       head: true,
-    });
+    })
+    .eq("payment.payment_status", "paid");
 
   if (error) throw error;
 
